@@ -61,6 +61,26 @@
             position.x += 0.1;
             model.setAttribute('position', position);
         });
+
+        // キーボードのイベントリスナーを設定
+        document.addEventListener('keydown', (event) => {
+            const position = model.getAttribute('position');
+            switch(event.key) {
+                case 'ArrowUp':
+                    position.y += 0.1;
+                    break;
+                case 'ArrowDown':
+                    position.y -= 0.1;
+                    break;
+                case 'ArrowLeft':
+                    position.x -= 0.1;
+                    break;
+                case 'ArrowRight':
+                    position.x += 0.1;
+                    break;
+            }
+            model.setAttribute('position', position);
+        });
     </script>
 </body>
 </html>
