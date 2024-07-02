@@ -62,11 +62,22 @@
             <button id="rotateY">回転Y軸</button>
             <button id="rotateZ">回転Z軸</button>
         </div>
+        <div class="row">
+            <button id="reset">初期位置・向きへ戻す</button>
+        </div>
     </div>
     
     <script>
-        // モデルの初期位置
+        // モデルの初期位置と向き
+        const initialPosition = { x: 0, y: 0, z: 0 };
+        const initialRotation = { x: 0, y: 180, z: 0 };
+        const initialScale = { x: 0.1, y: 0.1, z: 0.1 };
+
+        // モデルの初期設定
         const model = document.getElementById('model');
+        model.setAttribute('position', initialPosition);
+        model.setAttribute('rotation', initialRotation);
+        model.setAttribute('scale', initialScale);
 
         // キーボードとボタンの操作を統一する関数
         function moveModel(direction) {
@@ -127,6 +138,13 @@
             model.setAttribute('rotation', rotation);
         }
 
+        // 初期位置・向きへ戻す関数
+        function resetModel() {
+            model.setAttribute('position', initialPosition);
+            model.setAttribute('rotation', initialRotation);
+            model.setAttribute('scale', initialScale);
+        }
+
         // キーボードのイベントリスナーを設定
         document.addEventListener('keydown', (event) => {
             switch(event.key) {
@@ -163,6 +181,9 @@
                 case 'z':
                     rotateModel('z');
                     break;
+                case 'Escape':
+                    resetModel();
+                    break;
                 default:
                     return; // 他のキーが押された場合は無視
             }
@@ -181,6 +202,7 @@
         document.getElementById('rotateX').addEventListener('click', () => rotateModel('x'));
         document.getElementById('rotateY').addEventListener('click', () => rotateModel('y'));
         document.getElementById('rotateZ').addEventListener('click', () => rotateModel('z'));
+        document.getElementById('reset').addEventListener('click', resetModel);
     </script>
 </body>
 </html>
