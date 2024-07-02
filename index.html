@@ -43,6 +43,12 @@
                 case 'ArrowRight':
                     position.x += 0.1;
                     break;
+                case 'w': // キー"W"で前進
+                    position.z -= 0.1;
+                    break;
+                case 's': // キー"S"で後退
+                    position.z += 0.1;
+                    break;
                 default:
                     return; // 他のキーが押された場合は無視
             }
