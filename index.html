@@ -53,6 +53,15 @@
             <button id="moveForward">前進</button>
             <button id="moveBackward">後退</button>
         </div>
+        <div class="row">
+            <button id="scaleUp">拡大</button>
+            <button id="scaleDown">縮小</button>
+        </div>
+        <div class="row">
+            <button id="rotateX">回転X軸</button>
+            <button id="rotateY">回転Y軸</button>
+            <button id="rotateZ">回転Z軸</button>
+        </div>
     </div>
     
     <script>
@@ -85,6 +94,39 @@
             model.setAttribute('position', position);
         }
 
+        function scaleModel(direction) {
+            const scale = model.getAttribute('scale');
+            switch(direction) {
+                case 'up':
+                    scale.x += 0.1;
+                    scale.y += 0.1;
+                    scale.z += 0.1;
+                    break;
+                case 'down':
+                    scale.x = Math.max(0.1, scale.x - 0.1);
+                    scale.y = Math.max(0.1, scale.y - 0.1);
+                    scale.z = Math.max(0.1, scale.z - 0.1);
+                    break;
+            }
+            model.setAttribute('scale', scale);
+        }
+
+        function rotateModel(axis) {
+            const rotation = model.getAttribute('rotation');
+            switch(axis) {
+                case 'x':
+                    rotation.x += 10;
+                    break;
+                case 'y':
+                    rotation.y += 10;
+                    break;
+                case 'z':
+                    rotation.z += 10;
+                    break;
+            }
+            model.setAttribute('rotation', rotation);
+        }
+
         // キーボードのイベントリスナーを設定
         document.addEventListener('keydown', (event) => {
             switch(event.key) {
@@ -106,6 +148,21 @@
                 case 's':
                     moveModel('backward');
                     break;
+                case '+':
+                    scaleModel('up');
+                    break;
+                case '-':
+                    scaleModel('down');
+                    break;
+                case 'x':
+                    rotateModel('x');
+                    break;
+                case 'y':
+                    rotateModel('y');
+                    break;
+                case 'z':
+                    rotateModel('z');
+                    break;
                 default:
                     return; // 他のキーが押された場合は無視
             }
@@ -119,6 +176,11 @@
         document.getElementById('moveRight').addEventListener('click', () => moveModel('right'));
         document.getElementById('moveForward').addEventListener('click', () => moveModel('forward'));
         document.getElementById('moveBackward').addEventListener('click', () => moveModel('backward'));
+        document.getElementById('scaleUp').addEventListener('click', () => scaleModel('up'));
+        document.getElementById('scaleDown').addEventListener('click', () => scaleModel('down'));
+        document.getElementById('rotateX').addEventListener('click', () => rotateModel('x'));
+        document.getElementById('rotateY').addEventListener('click', () => rotateModel('y'));
+        document.getElementById('rotateZ').addEventListener('click', () => rotateModel('z'));
     </script>
 </body>
 </html>
